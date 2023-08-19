@@ -24,5 +24,14 @@ model Album {
   description   String   @db.Text
   artiste_id    Int
   artiste       Artiste    @relation(fields: [artiste_id], references: [id])
+  itens_album   ItemAlbum[]
   createdAt     DateTime @default(now())
+}
+
+model ItemAlbum {
+  id          Int      @id @default(autoincrement())
+  album_id    Int
+  album       Album    @relation(fields: [album_id], references: [id])
+  url         String
+  createdAt   DateTime @default(now())
 }
