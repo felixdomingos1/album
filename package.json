@@ -1,0 +1,11 @@
+{
+  "name": "album",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/plbpassil/album.git",
+  "author": "Paulino Passil <passilpaulino@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  }
+}
