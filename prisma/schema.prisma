@@ -14,5 +14,15 @@ model Artiste {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   name      String
+  album     Album[]
   createdAt DateTime @default(now())
+}
+
+model Album {
+  id            Int      @id @default(autoincrement())
+  name          String   @unique
+  description   String   @db.Text
+  artiste_id    Int
+  artiste       Artiste    @relation(fields: [artiste_id], references: [id])
+  createdAt     DateTime @default(now())
 }
