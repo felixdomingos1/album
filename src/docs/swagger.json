@@ -50,6 +50,49 @@
           }
         }
       }
+    },
+    "/artiste/signin": {
+      "post": {
+        "summary": "Login do artista",
+        "description": "Rota responsável por fazer o log in do artista",
+        "tags": ["Log in"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Session"
+              },
+              "examples": {
+                "sessao": {
+                  "value": {
+                    "email": "artista1@album.com",
+                    "password": "12345678"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/CadastroArtistaResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro"
+          },
+          "404": {
+            "description": "Não encontrado"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -90,6 +133,19 @@
           },
           "token": {
             "type": "string"
+          }
+        }
+      },
+      "Session": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "required": true
+          },
+          "password": {
+            "type": "string",
+            "required": true
           }
         }
       }
