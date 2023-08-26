@@ -1,1 +1,105 @@
-{}
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Álbum para artistas",
+    "description": "",
+    "termsOfService": "",
+    "contact": {
+      "email": "passilpaulino@gmail.com"
+    },
+    "version": "1.0.0",
+    "servers": [
+      {
+        "url": "${BASE_URL}",
+        "description": "Api para álbuns para artistas"
+      }
+    ]
+  },
+  "paths": {
+    "/artiste/signup": {
+      "post": {
+        "summary": "Cadastro de artista",
+        "description": "Rota responsável por cadastrar um novo artista",
+        "tags": ["cadastro"],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/CadastroArtista"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/CadastroArtistaResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro"
+          },
+          "404": {
+            "description": "Não encontrado"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CadastroArtista": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "email": {
+            "type": "string",
+            "required": true
+          },
+          "image": {
+            "type": "string",
+            "format": "binary",
+            "required": true
+          },
+          "password": {
+            "type": "string",
+            "required": true
+          }
+        }
+      },
+      "CadastroArtistaResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
