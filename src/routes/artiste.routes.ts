@@ -5,8 +5,12 @@ import { multerConfig } from "../config/multer";
 
 const artisteRouter = Router();
 
-artisteRouter.post("/", multer(multerConfig).single("image"), (req, res) => {
-  return createArtiste.handle(req, res);
-});
+artisteRouter.post(
+  "/signup",
+  multer(multerConfig).single("image"),
+  (req, res) => {
+    return createArtiste.handle(req, res);
+  }
+);
 
 export { artisteRouter };
