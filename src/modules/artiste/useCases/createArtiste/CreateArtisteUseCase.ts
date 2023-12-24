@@ -1,7 +1,4 @@
-import {
-  IArtisteRepository,
-  ICreateArtisteUseCaseDTO,
-} from "../../repositories/IArtisteRepository";
+import { IArtisteRepository, ICreateArtisteUseCaseDTO } from "../../repositories/IArtisteRepository";
 import { hash } from "bcrypt";
 import { AppError } from "../../../../errors/AppError";
 import { createTokenService } from "../../../../services/createTokenService";
@@ -22,16 +19,18 @@ class CreateArtisteUseCase {
     password,
     profile_image,
   }: ICreateArtisteUseCaseDTO): Promise<ICreateArtisteResponse> {
-    const email_existe = await this.artisteRepository.findByEmail(email);
+    const isEmailExists = await this.artisteRepository.findByEmail(email);
 
-    if (email_existe) throw new AppError("Contacto não autorizado!", 400);
+    if (isEmailExists) {
+      throw new AppError("Unauthorized Contact!", 400);
+    }
 
-    const password_hash = await hash(password, 8);
+    const passwordHash = await hash(password, 8);
 
     const artiste = await this.artisteRepository.create({
       name,
       email,
-      password_hash,
+      password_hash: passwordHash,
       profile_image,
     });
 
