@@ -3,16 +3,11 @@ import prismaClient from "../../../../prisma";
 import { IArtisteRepository, ICreateArtisteDTO } from "../IArtisteRepository";
 
 class ArtisteRepository implements IArtisteRepository {
-  async create({
-    name,
-    email,
-    password_hash,
-    profile_image,
-  }: ICreateArtisteDTO): Promise<Artiste> {
+  async create(artistData: ICreateArtisteDTO): Promise<Artiste> {
+    const { name, email, password_hash, profile_image } = artistData;
     const artiste = await prismaClient.artiste.create({
       data: { name, email, password_hash, profile_image },
     });
-
     return artiste;
   }
 
@@ -20,7 +15,6 @@ class ArtisteRepository implements IArtisteRepository {
     const artiste = await prismaClient.artiste.findUnique({
       where: { email },
     });
-
     return artiste;
   }
 
@@ -28,7 +22,6 @@ class ArtisteRepository implements IArtisteRepository {
     const artiste = await prismaClient.artiste.findFirst({
       where: { id },
     });
-
     return artiste;
   }
 }
